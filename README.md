@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/CSTR-Edinburgh/merlin.svg?branch=master)](https://travis-ci.org/CSTR-Edinburgh/merlin)
 
-## Merlin: The Neural Network (NN) based Speech Synthesis System
+## Merlin: The Neural Network (NN) based Speech Synthesis System   (Mohammed)
 
 This repository contains the Neural Network (NN) based Speech Synthesis System  
 developed at the Centre for Speech Technology Research (CSTR), University of 
