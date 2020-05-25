@@ -1,9 +1,14 @@
 [![Build Status](https://travis-ci.org/CSTR-Edinburgh/merlin.svg?branch=master)](https://travis-ci.org/CSTR-Edinburgh/merlin)
 
 ## Continuous Vocoder in DNN-TTS system
-
-
-
+##
+##
+##
+#
+#
+#
+#
+#
 
 ## Merlin: The Neural Network (NN) based Speech Synthesis System
 
