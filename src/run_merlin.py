@@ -1237,7 +1237,16 @@ def main_function(cfg):
             logger.info('Test   : DNN -- MAG: %.3f dB; REAL: %.3f dB; IMAG: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
                     %(test_mag_mse, test_real_mse, test_imag_mse , test_f0_mse , test_f0_corr, test_vuv_error*100.))
 
+
+
         if cfg.vocoder_type == 'WORLD':
+            logger.info('Develop: DNN -- MCD: %.3f dB; BAP: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
+                    %(valid_spectral_distortion, valid_bap_mse, valid_f0_mse, valid_f0_corr, valid_vuv_error*100.))
+            logger.info('Test   : DNN -- MCD: %.3f dB; BAP: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
+                    %(test_spectral_distortion , test_bap_mse , test_f0_mse , test_f0_corr, test_vuv_error*100.))
+            
+
+        if cfg.vocoder_type == 'continuous':
             logger.info('Develop: DNN -- MCD: %.3f dB; MVF: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
                     %(valid_spectral_distortion, valid_mvf_mse, valid_f0_mse, valid_f0_corr, valid_vuv_error*100.))
             logger.info('Test   : DNN -- MCD: %.3f dB; MVF: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \

@@ -4,13 +4,13 @@ if test "$#" -ne 1; then
     echo "################################"
     echo "Usage:"
     echo "Chose any of the below datasets"
-    echo "To run on short data:"
-    echo "./01_setup.sh slt_arctic_demo"
-    echo "./01_setup.sh awb_arctic_demo"
-    echo "              (or)          " 
+    # echo "To run on short data:"
+    # echo "./01_setup.sh slt_arctic_demo"
+    # echo "./01_setup.sh awb_arctic_demo"
+    # echo "              (or)          " 
     echo "To run on full data:"
     echo "./01_setup.sh slt_arctic_full"
-    echo "./01_setup.sh awb_arctic_full"
+    # echo "./01_setup.sh awb_arctic_full"
     echo "./01_setup.sh bdl_arctic_full"
     echo "################################"
     exit 1
@@ -35,28 +35,32 @@ mkdir -p ${voice_dir}
 mkdir -p ${acoustic_dir}
 mkdir -p ${duration_dir}
 
-if [ "$voice_name" == "slt_arctic_demo" ]
+if [ "$voice_name" == "slt_arctic_full" ]
 then
-    data_dir=slt_arctic_demo_data
-    data_url=http://104.131.174.95/${data_dir}.zip
-elif [ "$voice_name" == "slt_arctic_full" ]
-then
-    data_dir=slt_arctic_full_data
-    data_url=http://104.131.174.95/${data_dir}.zip
-elif [ "$voice_name" == "awb_arctic_demo" ]
-then
-    data_dir=awb_arctic_demo_data
-    data_url=http://104.131.174.95/${data_dir}.zip
-elif [ "$voice_name" == "awb_arctic_full" ]
-then
-    data_dir=awb_arctic_full_data
-    data_url=http://104.131.174.95/${data_dir}.zip
+    data_dir=slt_arctic_full
+    data_url=https://bmeedu-my.sharepoint.com/:u:/g/personal/al-radhi_mohammedsalahhamza_edu_bme_hu/EfFdHfS2STdAts4erFdUODsBYHvGuOjBLufpmhZSOzRL6g?e=ymxjNW
 elif [ "$voice_name" == "bdl_arctic_full" ]
 then
-    data_dir=bdl_arctic_full_data
-    data_url=https://github.com/aospan/merlin-tts/raw/master/${data_dir}.zip
+    data_dir=bdl_arctic_full
+    data_url=https://bmeedu-my.sharepoint.com/:u:/g/personal/al-radhi_mohammedsalahhamza_edu_bme_hu/EecyJnx96-BHgGFLMWIFveABzBX4MzO8uxEWGACC3RShBA?e=wS0Iut
+
+
+# elif [ "$voice_name" == "awb_arctic_demo" ]
+# then
+    # data_dir=awb_arctic_demo_data
+    # data_url=http://104.131.174.95/${data_dir}.zip
+# elif [ "$voice_name" == "awb_arctic_full" ]
+# then
+    # data_dir=awb_arctic_full_data
+    # data_url=http://104.131.174.95/${data_dir}.zip
+# elif [ "$voice_name" == "bdl_arctic_full" ]
+# then
+    # data_dir=bdl_arctic_full_data
+    # data_url=https://github.com/aospan/merlin-tts/raw/master/${data_dir}.zip
+
+
 else
-    echo "The data for voice name ($voice_name) is not available...please use slt_arctic_demo, slt_arctic_full or bdl_arctic_full !!"
+    echo "The data for voice name ($voice_name) is not available...please use either slt_arctic_full or bdl_arctic_full !!"
     exit 1
 fi
 
@@ -93,26 +97,40 @@ echo "WorkDir=${current_working_dir}" >>  $global_config_file
 echo "Voice=${voice_name}" >> $global_config_file
 echo "Labels=state_align" >> $global_config_file
 echo "QuestionFile=questions-radio_dnn_416.hed" >> $global_config_file
-echo "Vocoder=WORLD" >> $global_config_file
+
+# echo "Vocoder=WORLD" >> $global_config_file
+echo "Vocoder=continuous" >> $global_config_file
+
 echo "SamplingFreq=16000" >> $global_config_file
 
-if [[ "$voice_name" == *"demo"* ]]
-then
-    echo "FileIDList=file_id_list_demo.scp" >> $global_config_file
-    echo "Train=50" >> $global_config_file 
-    echo "Valid=5" >> $global_config_file 
-    echo "Test=5" >> $global_config_file 
-elif [[ "$voice_name" == *"full"* ]] 
-then
-    echo "FileIDList=file_id_list_full.scp" >> $global_config_file
-    echo "Train=1000" >> $global_config_file 
-    echo "Valid=66" >> $global_config_file 
-    echo "Test=66" >> $global_config_file 
-else
-    echo "The data for voice name ($voice_name) is not available...please use slt_arctic_demo or slt_arctic_full !!"
-    exit 1
-fi
+# if [[ "$voice_name" == *"demo"* ]]
+# then
+    # echo "FileIDList=file_id_list_demo.scp" >> $global_config_file
+    # echo "Train=50" >> $global_config_file 
+    # echo "Valid=5" >> $global_config_file 
+    # echo "Test=5" >> $global_config_file 
+# elif [[ "$voice_name" == *"full"* ]] 
+# then
+    # echo "FileIDList=file_id_list_full.scp" >> $global_config_file
+    # echo "Train=1000" >> $global_config_file 
+    # echo "Valid=66" >> $global_config_file 
+    # echo "Test=66" >> $global_config_file 
+# else
+    # echo "The data for voice name ($voice_name) is not available...please use slt_arctic_demo or slt_arctic_full !!"
+    # exit 1
+# fi
+
+
+
+echo "FileIDList=file_id_list_full.scp" >> $global_config_file
+echo "Train=1000" >> $global_config_file 
+echo "Valid=66" >> $global_config_file 
+echo "Test=66" >> $global_config_file 
+
+
+
+
 
 echo "Merlin default voice settings configured in $global_config_file"
-echo "setup done...!"
+echo "setup done with continuous vocoder ...!"
 

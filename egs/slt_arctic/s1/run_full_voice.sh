@@ -18,6 +18,6 @@ fi
 ./04_train_acoustic_model.sh conf/acoustic_slt_arctic_full.conf 
 
 ### Step 5: synthesize speech ###
-./05_run_merlin.sh conf/test_dur_synth_slt_arctic_full.conf conf/test_synth_slt_arctic_full.conf 
+###./05_run_merlin.sh conf/test_dur_synth_slt_arctic_full.conf conf/test_synth_slt_arctic_full.conf 
 
 
