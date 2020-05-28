@@ -315,12 +315,41 @@ def wavgen_magphase(gen_dir, file_id_list, cfg, logger):
 
     return
 
+
+def wavgen_continuous(gen_dir):
+
+    # Import continuous libraries   
+
+    import glob, os
+
+    '''
+    for filename in glob.iglob(os.path.join(gen_dir, '*.mgc')):
+        os.rename(filename, filename[:-4] + '.mgcep')
+   '''
+    
+    cur_dir = os.getcwd()
+
+    os.chdir("../../../misc/scripts/vocoder/continuous/")
+    command = 'python3 cont_speech_synthesis.py '+gen_dir+'/'
+    os.system(command)
+
+    os.chdir(cur_dir)
+    
+    return
+
+
 def generate_wav(gen_dir, file_id_list, cfg):
 
     logger = logging.getLogger("wav_generation")
 
+
+    ## continuous Vocoder:
+    if cfg.vocoder_type=='continuous':
+        wavgen_continuous(gen_dir)
+
+
     ## STRAIGHT or WORLD vocoders:
-    if (cfg.vocoder_type=='STRAIGHT') or (cfg.vocoder_type=='WORLD'):
+    elif (cfg.vocoder_type=='STRAIGHT') or (cfg.vocoder_type=='WORLD'):
         wavgen_straight_type_vocoder(gen_dir, file_id_list, cfg, logger)
 
     ## MagPhase Vocoder:
