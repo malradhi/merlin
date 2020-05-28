@@ -70,26 +70,25 @@ echo "downloading data....."
 
 if [ "$voice_name" == "slt_arctic_full" ]
 then
-	data_dir=slt_arctic_full
-	python download_gdrive.py 12_9ta8sa5iHi649n1GEy2ZIwzOzfOGs7 ${voice_name}.zip
+	if [[ ! -f ${voice_name}.zip ]]; then
+		data_dir=slt_arctic_full
+		python download_gdrive.py 12_9ta8sa5iHi649n1GEy2ZIwzOzfOGs7 ${voice_name}.zip
+	else
+		echo "the database already exists..."
+	do_unzip=true
+	fi
 	
 elif [ "$voice_name" == "bdl_arctic_full" ]
 then
-	data_dir=bdl_arctic_full
-    python download_gdrive.py 1rgaqRhnq7R5_HX1ONLQ_3iAicorQcJe8 ${voice_name}.zip
-	
-else
-	echo "this data is not supported yet"
-    exit 1
-fi
 
-
-
-
-
-# echo "downloading data....."
-# data_dir=slt_arctic_full
-# python download_gdrive.py 1iNlYzAaSlXbl807SwpqNNTuktXWWn5S8 ${data_dir}.zip
+	if [[ ! -f ${voice_name}.zip ]]; then
+		data_dir=bdl_arctic_full
+		python download_gdrive.py 1rgaqRhnq7R5_HX1ONLQ_3iAicorQcJe8 ${voice_name}.zip
+	else
+		echo "the database already exists..."
+	do_unzip=true
+	fi
+fi	
 
 
 
@@ -121,6 +120,9 @@ if [[ ! -d ${data_dir} ]] || [[ -n "$do_unzip" ]]; then
     mv ${data_dir}/merlin_baseline_practice/acoustic_data/ ${acoustic_dir}/data
     mv ${data_dir}/merlin_baseline_practice/test_data/ ${synthesis_dir}
 fi
+
+rm -f ${voice_name}.zip
+
 echo "data is ready!"
 
 global_config_file=conf/global_settings.cfg
