@@ -35,48 +35,82 @@ mkdir -p ${voice_dir}
 mkdir -p ${acoustic_dir}
 mkdir -p ${duration_dir}
 
-if [ "$voice_name" == "slt_arctic_full" ]
-then
-    data_dir=slt_arctic_full
-    data_url=https://bmeedu-my.sharepoint.com/:u:/g/personal/al-radhi_mohammedsalahhamza_edu_bme_hu/EfFdHfS2STdAts4erFdUODsBYHvGuOjBLufpmhZSOzRL6g?e=ymxjNW
-elif [ "$voice_name" == "bdl_arctic_full" ]
-then
-    data_dir=bdl_arctic_full
-    data_url=https://bmeedu-my.sharepoint.com/:u:/g/personal/al-radhi_mohammedsalahhamza_edu_bme_hu/EecyJnx96-BHgGFLMWIFveABzBX4MzO8uxEWGACC3RShBA?e=wS0Iut
-
-
-# elif [ "$voice_name" == "awb_arctic_demo" ]
+# if [ "$voice_name" == "slt_arctic_full" ]
 # then
-    # data_dir=awb_arctic_demo_data
-    # data_url=http://104.131.174.95/${data_dir}.zip
-# elif [ "$voice_name" == "awb_arctic_full" ]
-# then
-    # data_dir=awb_arctic_full_data
-    # data_url=http://104.131.174.95/${data_dir}.zip
+    # data_dir=slt_arctic_full
+    # data_url=https://bmeedu-my.sharepoint.com/:u:/g/personal/al-radhi_mohammedsalahhamza_edu_bme_hu/EfFdHfS2STdAts4erFdUODsBYHvGuOjBLufpmhZSOzRL6g?e=ymxjNW
 # elif [ "$voice_name" == "bdl_arctic_full" ]
 # then
-    # data_dir=bdl_arctic_full_data
-    # data_url=https://github.com/aospan/merlin-tts/raw/master/${data_dir}.zip
+    # data_dir=bdl_arctic_full
+    # data_url=https://bmeedu-my.sharepoint.com/:u:/g/personal/al-radhi_mohammedsalahhamza_edu_bme_hu/EecyJnx96-BHgGFLMWIFveABzBX4MzO8uxEWGACC3RShBA?e=wS0Iut
 
 
+# # elif [ "$voice_name" == "awb_arctic_demo" ]
+# # then
+    # # data_dir=awb_arctic_demo_data
+    # # data_url=http://104.131.174.95/${data_dir}.zip
+# # elif [ "$voice_name" == "awb_arctic_full" ]
+# # then
+    # # data_dir=awb_arctic_full_data
+    # # data_url=http://104.131.174.95/${data_dir}.zip
+# # elif [ "$voice_name" == "bdl_arctic_full" ]
+# # then
+    # # data_dir=bdl_arctic_full_data
+    # # data_url=https://github.com/aospan/merlin-tts/raw/master/${data_dir}.zip
+
+
+# else
+    # echo "The data for voice name ($voice_name) is not available...please use either slt_arctic_full or bdl_arctic_full !!"
+    # exit 1
+# fi
+
+
+echo "downloading data....."
+
+
+if [ "$voice_name" == "slt_arctic_full" ]
+then
+	data_dir=slt_arctic_full
+	python download_gdrive.py 12_9ta8sa5iHi649n1GEy2ZIwzOzfOGs7 ${voice_name}.zip
+	
+elif [ "$voice_name" == "bdl_arctic_full" ]
+then
+	data_dir=bdl_arctic_full
+    python download_gdrive.py 1rgaqRhnq7R5_HX1ONLQ_3iAicorQcJe8 ${voice_name}.zip
+	
 else
-    echo "The data for voice name ($voice_name) is not available...please use either slt_arctic_full or bdl_arctic_full !!"
+	echo "this data is not supported yet"
     exit 1
 fi
 
-if [[ ! -f ${data_dir}.zip ]]; then
-    echo "downloading data....."
-    rm -f ${data_dir}.zip
-    if hash curl 2>/dev/null; then
-        curl -L -O $data_url
-    elif hash wget 2>/dev/null; then
-        wget $data_url
-    else
-        echo "please download the data from $data_url"
-        exit 1
-    fi
-    do_unzip=true
-fi
+
+
+
+
+# echo "downloading data....."
+# data_dir=slt_arctic_full
+# python download_gdrive.py 1iNlYzAaSlXbl807SwpqNNTuktXWWn5S8 ${data_dir}.zip
+
+
+
+
+# if [[ ! -f ${data_dir}.zip ]]; then
+    # echo "downloading data....."
+    # rm -f ${data_dir}.zip
+    # if hash curl 2>/dev/null; then
+        # curl -L -O $data_url
+    # elif hash wget 2>/dev/null; then
+        # wget $data_url
+    # else
+        # echo "please download the data from $data_url"
+        # exit 1
+    # fi
+    # do_unzip=true
+# fi
+
+
+
+
 if [[ ! -d ${data_dir} ]] || [[ -n "$do_unzip" ]]; then
     echo "unzipping files......"
     rm -fr ${data_dir}
