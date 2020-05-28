@@ -157,16 +157,16 @@ then
         $SED -i s#'bap\s*:.*'#'bap: 5'# $acoustic_config_file
         $SED -i s#'dbap\s*:.*'#'dbap: 15'# $acoustic_config_file
     fi
+elif [ "$Vocoder" == "continuous" ]
+then
+	$SED -i s#'mvf\s*:.*'#'mvf: 1'# $acoustic_config_file
+    $SED -i s#'dmvf\s*:.*'#'dmvf: 3'# $acoustic_config_file
 else
     echo "This vocoder ($Vocoder) is not supported as of now...please configure yourself!!"
 fi
 
 $SED -i s#'lf0\s*:.*'#'lf0: 1'# $acoustic_config_file
 $SED -i s#'dlf0\s*:.*'#'dlf0: 3'# $acoustic_config_file
-
-
-$SED -i s#'mvf\s*:.*'#'mvf: 1'# $acoustic_config_file
-$SED -i s#'dmvf\s*:.*'#'dmvf: 3'# $acoustic_config_file
 
 
 
