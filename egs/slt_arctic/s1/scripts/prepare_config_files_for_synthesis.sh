@@ -66,15 +66,6 @@ fi
 $SED -i s#'test_synth_dir\s*:.*'#'test_synth_dir: %(TOPLEVEL)s/experiments/'${Voice}'/test_synthesis/gen-lab'# $duration_config_file
 
 
-# # [Architecture]
-# if [ "$Voice" == "slt_arctic_demo" ]
-# then
-    # $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $duration_config_file
-    # $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $duration_config_file
-    # $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $duration_config_file
-# fi
-
-
 # [Data]
 $SED -i s#'train_file_number\s*:.*'#'train_file_number: '${Train}# $duration_config_file
 $SED -i s#'valid_file_number\s*:.*'#'valid_file_number: '${Valid}# $duration_config_file
@@ -197,15 +188,6 @@ then
 else
     echo "This sampling frequency ($SamplingFreq) never tested before...please configure yourself!!"
 fi
-
-
-# # [Architecture]
-# if [ "$Voice" == "slt_arctic_demo" ]
-# then
-    # $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $acoustic_config_file
-    # $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $acoustic_config_file
-    # $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $acoustic_config_file
-# fi
 
 
 # [Data]

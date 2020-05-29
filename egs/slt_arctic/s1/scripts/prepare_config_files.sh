@@ -57,16 +57,6 @@ else
 fi
 
 
-# [Architecture]
-
-# if [ "$Voice" == "slt_arctic_demo" ]
-# then
-    # $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $duration_config_file
-    # $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $duration_config_file
-    # $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $duration_config_file
-# fi
-
-
 # [Data]
 $SED -i s#'train_file_number\s*:.*'#'train_file_number: '${Train}# $duration_config_file
 $SED -i s#'valid_file_number\s*:.*'#'valid_file_number: '${Valid}# $duration_config_file
@@ -117,25 +107,6 @@ fi
 $SED -i s#'mgc\s*:.*'#'mgc: 60'# $acoustic_config_file
 $SED -i s#'dmgc\s*:.*'#'dmgc: 180'# $acoustic_config_file
 
-# if [ "$Vocoder" == "STRAIGHT" ]
-# then
-    # $SED -i s#'bap\s*:.*'#'bap: 25'# $acoustic_config_file
-    # $SED -i s#'dbap\s*:.*'#'dbap: 75'# $acoustic_config_file
-
-# elif [ "$Vocoder" == "WORLD" ]
-# then
-    # if [ "$SamplingFreq" == "16000" ]
-    # then
-        # $SED -i s#'bap\s*:.*'#'bap: 1'# $acoustic_config_file
-        # $SED -i s#'dbap\s*:.*'#'dbap: 3'# $acoustic_config_file
-    # elif [ "$SamplingFreq" == "48000" ]
-    # then
-        # $SED -i s#'bap\s*:.*'#'bap: 5'# $acoustic_config_file
-        # $SED -i s#'dbap\s*:.*'#'dbap: 15'# $acoustic_config_file
-    # fi
-# else
-    # echo "This vocoder ($Vocoder) is not supported as of now...please configure yourself!!"
-# fi
 
 $SED -i s#'lf0\s*:.*'#'lf0: 1'# $acoustic_config_file
 $SED -i s#'dlf0\s*:.*'#'dlf0: 3'# $acoustic_config_file
@@ -170,13 +141,6 @@ else
     echo "This sampling frequency ($SamplingFreq) never tested before...please configure yourself!!"
 fi
 
-# # [Architecture]
-# if [ "$Voice" == "slt_arctic_demo" ]
-# then
-    # $SED -i s#'hidden_layer_size\s*:.*'#'hidden_layer_size: [512, 512, 512, 512]'# $acoustic_config_file
-    # $SED -i s#'hidden_layer_type\s*:.*'#'hidden_layer_type: ['\''TANH'\'', '\''TANH'\'', '\''TANH'\'', '\''TANH'\'']'# $acoustic_config_file
-    # $SED -i s#'model_file_name\s*:.*'#'model_file_name: feed_forward_4_tanh'# $acoustic_config_file
-# fi
 
 
 # [Data]
