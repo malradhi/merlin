@@ -121,7 +121,7 @@ $SED -i s#'test_id_list\s*:.*'#'test_id_list: %(TOPLEVEL)s/experiments/'${Voice}
 
 # [Labels]
 
-$SED -i s#'enforce_silence\s*:.*'#'enforce_silence: True'# $acoustic_config_file
+$SED -i s#'enforce_silence\s*:.*'#'enforce_silence: False'# $acoustic_config_file
 $SED -i s#'label_type\s*:.*'#'label_type: '${Labels}# $acoustic_config_file
 $SED -i s#'label_align\s*:.*'#'label_align: %(TOPLEVEL)s/experiments/'${Voice}'/test_synthesis/gen-lab'# $acoustic_config_file
 $SED -i s#'question_file_name\s*:.*'#'question_file_name: %(Merlin)s/misc/questions/'${QuestionFile}# $acoustic_config_file

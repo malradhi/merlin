@@ -27,9 +27,13 @@ echo "synthesizing durations..."
 echo "synthesizing speech..."
 ./scripts/submit.sh ${MerlinDir}/src/run_merlin.py $test_synth_config_file
 
+echo ""
 echo "deleting intermediate synthesis files..."
 ./scripts/remove_intermediate_files.sh $global_config_file
 
+echo ""
 echo "synthesized audio files are in: experiments/${Voice}/test_synthesis/wav"
-echo "All successfull!! Your demo voice is ready :)"
 
+echo ""
+echo "All successfull!! Your demo voice based on continuous vocoder is ready :)"
+echo ""

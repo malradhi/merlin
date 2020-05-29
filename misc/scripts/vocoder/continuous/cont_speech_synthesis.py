@@ -52,14 +52,8 @@ hiPitch=350
 Fs = 16000
 
 
-wav_path = sys.argv[1]
-lf0_path = sys.argv[1] 
-mvf_path = sys.argv[1] 
-mgc_path = sys.argv[1]
-
+gen_path = sys.argv[1]
 octave   = '/usr/bin/octave-cli' 
-
-
 
 frlen = 1024 # length of speech frames - should be order of 2, because of FFT
 frshft = round(0.005 * Fs)   # 5ms Frame shift
@@ -108,6 +102,72 @@ def highpass_filter(data_h, cutoff, fs, order=5):
     return z
 
 
+####################### Continuous Pitch Algorithm ################################################
+
+def get_pitch(gen_path, basefilename):
+
+    (Fs, x) = io_wav.read(gen_path + basefilename + '.wav')
+        
+    assert Fs == 16000
+        
+    pcm = ssp.PulseCodeModulation(Fs)
+        
+
+    frameSize = pcm.seconds_to_period(0.025, 'atleast') # 25ms Frame size
+    pitchSize = pcm.seconds_to_period(0.1, 'atmost')   # 100ms Pitch size
+    
+    pf = ssp.Frame(x, size=pitchSize, period=framePeriod)
+    pitch, ac= ssp.ACPitch(pf, pcm, loPitch, hiPitch)  # Initially pitch estimated
+
+    # Pre-emphasis
+    pre = ssp.parameter("Pre", None)
+    if pre is not None:
+        x = ssp.PoleFilter(x, pre) / 5
+    
+    # Frame Splitting
+    f = ssp.Frame(x, size=frameSize, period=framePeriod)   
+
+    # Windowing
+    aw = ssp.nuttall(frameSize+1)        
+    aw = np.delete(aw, -1)
+    w = ssp.Window(f, aw)
+    
+    # Autocorrelation    
+    ac = ssp.Autocorrelation(w)   
+
+    if (len(ac) > len(pitch)):
+        d = len(ac) - len(pitch)
+        addon = np.ones(d) * pitch[-1]
+        pitch = np.hstack((pitch, addon))
+        
+    # Save pitch as binary
+    lf0 = np.log(pitch)
+    lf0.astype('float32').tofile(gen_path + basefilename + '.lf0')
+  
+    return pitch
+
+
+###############################  get_MVF  #########################################################
+
+def get_MVF(gen_path, basefilename):
+    
+    in_wav = gen_path + basefilename + '.wav'
+    in_lf0i = gen_path + basefilename + '.lf0'
+    in_mvfi = gen_path + basefilename + '.mvf'
+    
+    # Get Maximum Voiced Frequency
+    command = octave + " --silent --eval \"MaximumVoicedFrequencyEstimation_nopp_run('" + \
+        in_wav + "', '" + in_lf0i + "', '" + in_mvfi + "')\""
+    #print('wav, lf0i -> mvfi, ' + in_wav)
+    #print("command=", command)
+    call(command, shell=True)
+    
+    # read in binary mvf file
+    with open(in_mvfi, 'rb') as f:
+        mvf = np.exp(np.fromfile(f, dtype=np.float32))
+    
+    return mvf
+
 
 ##################################  Get Residual Signal ###########################################
 
@@ -155,10 +215,10 @@ def mgc_get_residual(basefilename):
 
 
     ################# read wave ######################
-    for wav_file in os.listdir(wav_path):
+    for wav_file in os.listdir(gen_path):
         if '.wav' in wav_file:
             print('starting file: ' + wav_file)
-            (x_residual, Fs_) = wavread(wav_path + wav_file)
+            (x_residual, Fs_) = wavread(gen_path + wav_file)
     return x_residual
 
 
@@ -226,17 +286,17 @@ def mgc_decoder_residual_without_envelope(pitch, mvf, mgc_coeff, resid_codebook_
     
     # scale for SPTK
     scaled_source = np.float32(source / np.max(np.abs(source)) )
-    io_wav.write(wav_path + basefilename + '_source_float32.wav', Fs, scaled_source)
+    io_wav.write(gen_path + basefilename + '_source_float32.wav', Fs, scaled_source)
     
-    command = 'sox ' + wav_path + basefilename + '_source_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
+    command = 'sox ' + gen_path + basefilename + '_source_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
               'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
-              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + mgc_path + basefilename + '.mgc' + ' | ' + \
-              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + wav_path + basefilename + '_synthesized_without_envelope_0.wav'
+              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
+              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_without_envelope_0.wav'
     ###print(command)
     run(command, shell=True)
     
-    command = "sox -G " + wav_path + basefilename + '_synthesized_without_envelope_0.wav' + ' ' + \
-        wav_path + basefilename + '_synthesized_without_envelope.wav'
+    command = "sox -G " + gen_path + basefilename + '_synthesized_without_envelope_0.wav' + ' ' + \
+        gen_path + basefilename + '_synthesized_without_envelope.wav'
     ###print(command)
     run(command, shell=True)
    
@@ -265,17 +325,17 @@ def mgc_decoder_pulsenoise(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilena
     
     # scale for SPTK
     scaled_source = np.float32(source / np.max(np.abs(source)) )
-    io_wav.write(wav_path + basefilename + '_source_pulsenoise_float32.wav', Fs, scaled_source)
+    io_wav.write(gen_path + basefilename + '_source_pulsenoise_float32.wav', Fs, scaled_source)
     
-    command = 'sox ' + wav_path + basefilename + '_source_pulsenoise_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
+    command = 'sox ' + gen_path + basefilename + '_source_pulsenoise_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
               'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
-              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + mgc_path + basefilename + '.mgc' + ' | ' + \
-              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + wav_path + basefilename + '_synthesized_pulsenoise_0.wav'
+              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
+              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_pulsenoise_0.wav'
     ###print(command)
     run(command, shell=True)
     
-    command = "sox -G " + wav_path + basefilename + '_synthesized_pulsenoise_0.wav' + ' ' + \
-        wav_path + basefilename + '_synthesized_pulsenoise.wav'
+    command = "sox -G " + gen_path + basefilename + '_synthesized_pulsenoise_0.wav' + ' ' + \
+        gen_path + basefilename + '_synthesized_pulsenoise.wav'
     ###print(command)
     run(command, shell=True)
     
@@ -288,11 +348,11 @@ def mgc_decoder_pulsenoise(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilena
 
 def mgc_filter_residual(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename):
     
-    in_wav = wav_path + basefilename + '.wav'
-    in_raw = wav_path + basefilename + '.raw'
-    in_mgcep = mgc_path + basefilename + '.mgc'
-    in_resid = wav_path + basefilename + '_residual_original.wav'
-    out_resid = wav_path + basefilename + '_residual_filtered.wav'
+    in_wav = gen_path + basefilename + '.wav'
+    in_raw = gen_path + basefilename + '.raw'
+    in_mgcep = gen_path + basefilename + '.mgc'
+    in_resid = gen_path + basefilename + '_residual_original.wav'
+    out_resid = gen_path + basefilename + '_residual_filtered.wav'
     
     # wav -> raw
     command = 'sox -c 1 -e signed-integer -b 16 -t wav ' + in_wav + \
@@ -341,48 +401,48 @@ def mgc_filter_residual(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename)
     # '''
     # upper frequency band
     scaled_source = np.float32(source_upper / np.max(np.abs(source_upper)) )
-    io_wav.write(wav_path + basefilename + '_residual_upper_float32.wav', Fs, scaled_source)
+    io_wav.write(gen_path + basefilename + '_residual_upper_float32.wav', Fs, scaled_source)
     
-    command = 'sox ' + wav_path + basefilename + '_residual_upper_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
+    command = 'sox ' + gen_path + basefilename + '_residual_upper_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
               'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
-              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + mgc_path + basefilename + '.mgc' + ' | ' + \
-              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + wav_path + basefilename + '_synthesized_based_on_residual_0.wav'
+              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
+              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_based_on_residual_0.wav'
     ###print(command)
     run(command, shell=True)
     
-    command = "sox -G " + wav_path + basefilename + '_synthesized_based_on_residual_0.wav' + ' ' + \
-        wav_path + basefilename + '_synthesized_based_on_residual_upper.wav'
+    command = "sox -G " + gen_path + basefilename + '_synthesized_based_on_residual_0.wav' + ' ' + \
+        gen_path + basefilename + '_synthesized_based_on_residual_upper.wav'
     ###print(command)
     run(command, shell=True)    
    
     # lower frequency band
     scaled_source = np.float32(source_lower / np.max(np.abs(source_lower)) )
-    io_wav.write(wav_path + basefilename + '_residual_lower_float32.wav', Fs, scaled_source)
+    io_wav.write(gen_path + basefilename + '_residual_lower_float32.wav', Fs, scaled_source)
     
-    command = 'sox ' + wav_path + basefilename + '_residual_lower_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
+    command = 'sox ' + gen_path + basefilename + '_residual_lower_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
               'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
-              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + mgc_path + basefilename + '.mgc' + ' | ' + \
-              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + wav_path + basefilename + '_synthesized_based_on_residual_0.wav'
+              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
+              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_based_on_residual_0.wav'
     run(command, shell=True)
     
-    command = "sox -G " + wav_path + basefilename + '_synthesized_based_on_residual_0.wav' + ' ' + \
-        wav_path + basefilename + '_synthesized_based_on_residual_lower.wav'
+    command = "sox -G " + gen_path + basefilename + '_synthesized_based_on_residual_0.wav' + ' ' + \
+        gen_path + basefilename + '_synthesized_based_on_residual_lower.wav'
     run(command, shell=True)
        
     # upper and lower frequency band added together
     source = source_lower + source_upper
     scaled_source = np.float32(source / np.max(np.abs(source)) )
-    io_wav.write(wav_path + basefilename + '_residual_float32.wav', Fs, scaled_source)
+    io_wav.write(gen_path + basefilename + '_residual_float32.wav', Fs, scaled_source)
     
-    command = 'sox ' + wav_path + basefilename + '_residual_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
+    command = 'sox ' + gen_path + basefilename + '_residual_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
               'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
-              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + mgc_path + basefilename + '.mgc' + ' | ' + \
-              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + wav_path + basefilename + '_synthesized_based_on_residual_0.wav'
+              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
+              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_based_on_residual_0.wav'
     ###print(command)
     run(command, shell=True)
     
-    command = "sox -G " + wav_path + basefilename + '_synthesized_based_on_residual_0.wav' + ' ' + \
-        wav_path + basefilename + '_synthesized_based_on_residual.wav'
+    command = "sox -G " + gen_path + basefilename + '_synthesized_based_on_residual_0.wav' + ' ' + \
+        gen_path + basefilename + '_synthesized_based_on_residual.wav'
     run(command, shell=True)
     
     return [0]
@@ -515,16 +575,16 @@ def mgc_decoder_residual_with_envelope(pitch, mvf, mgc_coeff, resid_codebook_pca
     # scale for SPTK
     scaled_source = np.float32(source / np.max(np.abs(source)) )
     # scaled_source = np.float32(source)
-    io_wav.write(wav_path + basefilename + '_source_' + envelope_type + '_float32.wav', Fs, scaled_source)
+    io_wav.write(gen_path + basefilename + '_source_' + envelope_type + '_float32.wav', Fs, scaled_source)
     
-    command = 'sox ' + wav_path + basefilename + '_source_' + envelope_type + '_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
+    command = 'sox ' + gen_path + basefilename + '_source_' + envelope_type + '_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
               'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
-              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + mgc_path + basefilename + '.mgc' + ' | ' + \
-              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + wav_path + basefilename + '_synthesized_with_' + envelope_type + '_0.wav'
+              ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
+              'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_with_' + envelope_type + '_0.wav'
     run(command, shell=True)
     
-    command = "sox -G " + wav_path + basefilename + '_synthesized_with_' + envelope_type + '_0.wav' + ' ' + \
-        wav_path + basefilename + '_synthesized_with_' + envelope_type + '.wav ' + 'gain -n 0'
+    command = "sox -G " + gen_path + basefilename + '_synthesized_with_' + envelope_type + '_0.wav' + ' ' + \
+        gen_path + basefilename + '_synthesized_with_' + envelope_type + '.wav ' + 'gain -n 0'
     run(command, shell=True)
    
     return [0]
@@ -535,7 +595,7 @@ def mgc_decoder_residual_with_envelope(pitch, mvf, mgc_coeff, resid_codebook_pca
 
 
 # encode all files
-for wav_file in os.listdir(wav_path):
+for wav_file in os.listdir(gen_path):
     if '.wav' in wav_file and 'synthesized' not in wav_file and 'source' not in wav_file and 'residual' not in wav_file:
         basefilename = wav_file[:-4]
         print('starting encoding of file: ' + basefilename) 
@@ -545,16 +605,22 @@ resid_codebook_pca = read_residual_codebook(codebook_filename)
 
 
 # decode all files
-for lf0_file in os.listdir(lf0_path):
+for lf0_file in os.listdir(gen_path):
     if '.lf0' in lf0_file: # and '088' in lf0_file:
         basefilename = lf0_file[:-4]
         print('starting encoding of file: ' + basefilename)
+
         
-        
+        if not os.path.exists(gen_path + basefilename + '.lf0'):
+            get_pitch(gen_path, basefilename)
+        if not os.path.exists(gen_path + basefilename + '.mvf'):
+            get_MVF(gen_path, basefilename)
+
+            
         # open pitch, MVF , MGC
-        lf0 = np.float64(np.fromfile(lf0_path + basefilename + '.lf0', dtype=np.float32))
+        lf0 = np.float64(np.fromfile(gen_path + basefilename + '.lf0', dtype=np.float32))
         pitch = np.exp(lf0)
-        lmvf = np.float64(np.fromfile(mvf_path + basefilename + '.mvf', dtype=np.float32))
+        lmvf = np.float64(np.fromfile(gen_path + basefilename + '.mvf', dtype=np.float32))
         mvf = np.exp(lmvf)
         mgc_coeff = [0]
 
@@ -574,10 +640,9 @@ for lf0_file in os.listdir(lf0_path):
             mgc_decoder_residual_with_envelope(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename, envelope)
             
 
-
-
-
-
+os.system('rm '+sys.argv[1]+'/*_float32.wav')
+os.system('rm '+sys.argv[1]+'/*_pulsenoise.wav')
+os.system('rm '+sys.argv[1]+'/*_0.wav')
 
 
 
