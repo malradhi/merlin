@@ -12,7 +12,7 @@ As a difference with other traditonal statistical parametric vocoders, continuou
 * Maximum voice Freuqency (MVF)
 * Mel-Generalized Cepstral (MGC) 
 
-<p align="center"><img width="70%" src="model.png" /></p>
+<p align="center"><img width="80%" src="model.png" /></p>
 
 ## Continuous DNN-TTS
 
