@@ -43,6 +43,33 @@ OR
 ```
 
 It also creates a global config file: `conf/global_settings.cfg`, where default settings are stored.
+
+
+### Directory structure
+
+```none
+.
+├── misc
+│   └── scripts
+│       └── vocoder
+│	        └── continuous
+├── egs                     
+│   └── slt_arctic
+│       ├── s1
+│       ├── conf
+│       ├── scripts
+│       └── experiments
+│           ├── slt_arctic_full                      
+│           ├── acoustic_model                  
+│           ├── duration_model                        
+│           └── test_synthesis
+├── src
+└── tools               
+```
+
+
+
+
  
 ### 3. Prepare config files
 
