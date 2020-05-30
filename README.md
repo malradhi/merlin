@@ -55,14 +55,14 @@ It also creates a global config file: `conf/global_settings.cfg`, where default 
 │	        └── continuous
 ├── egs                     
 │   └── slt_arctic
-│       ├── s1
-│       ├── conf
-│       ├── scripts
-│       └── experiments
-│           ├── slt_arctic_full                      
-│           ├── acoustic_model                  
-│           ├── duration_model                        
-│           └── test_synthesis
+│       └── s1
+│           ├── conf
+│           ├── scripts
+│           └── experiments
+│               └── slt_arctic_full                      
+│                   ├── acoustic_model                  
+│                   ├── duration_model                        
+│                   └── test_synthesis
 ├── src
 └── tools               
 ```
