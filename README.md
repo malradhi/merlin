@@ -14,6 +14,12 @@ As a difference with other traditonal statistical parametric vocoders, continuou
 
 ## Continuous DNN-TTS
 
+Besides feed-forward deep neural network, this demo also supports recurrent neural networks:
+
+* Long short-term memory  (LSTM) 
+* Bidirectional LSTM     (BLSTM)
+* Gated recurrent units  (GRU)
+
 To run this demo, `./egs/slt_arctic/s1/run_full_voice.sh` script will:
 
 
@@ -83,7 +89,7 @@ If you want to test the trained version, `./tts_demo.sh` script will:
 - Synthesise speech with continuous vocoder 
 
 
-## Continuous DNN-TTS Requirements
+## Installation
 
 You need to have installed:
 * compiles: ```bash tools/compile_tools.sh```
