@@ -5,8 +5,6 @@
 
 This repository contains a TTS system based on Continuous vocoder developed at the Speech Technology and Smart Interactions Laboratory (SmartLab), Budapest University of Technology and Economics.
 
-## Continuous vocoder
-
 As a difference with other traditonal statistical parametric vocoders, continuous model focuses on extracting continuous parameters:
 
 * Fondamental Frequency (F0)
