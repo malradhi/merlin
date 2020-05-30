@@ -12,19 +12,19 @@ As a difference with other traditonal statistical parametric vocoders, continuou
 * Mel-Generalized Cepstral (MGC) 
 
 
-# Continuous DNN-TTS
+## Continuous DNN-TTS
 
 To run this demo, `./egs/slt_arctic/s1/run_full_voice.sh` script will:
 
 
-## 1. Check for missing packages
+### 1. Check for missing packages
 
 The first step is to check continuous vocoder requirements in your system.
 ```sh
 ./01_chk_rqmts.sh
 ```
 
-## 2. Setting up
+### 2. Setting up
 The second step is to run setup as it creates directories and downloads the required training data files.
 
 ```sh
@@ -37,7 +37,7 @@ OR
 
 It also creates a global config file: `conf/global_settings.cfg`, where default settings are stored.
  
-## 3. Prepare config files
+### 3. Prepare config files
 
 At this point, we have to prepare two config files to train DNN models
 - Acoustic Model
@@ -48,20 +48,20 @@ To prepare config files:
 ./03_prepare_conf_files.sh conf/global_settings.cfg
 ```
 
-## 4. Train duration model
+### 4. Train duration model
 
 To train duration model:
 ```sh
 ./04_train_duration_model.sh conf/duration_slt_arctic_full.conf
 ```
 
-## 5. Train acoustic model
+### 5. Train acoustic model
 
 To train acoustic model:
 ```sh
 ./05_train_acoustic_model.sh conf/acoustic_slt_arctic_full.conf
 ```
-## 6. Synthesize speech
+### 6. Synthesize speech
 
 To synthesize speech with continuous vocoder:
 ```sh
@@ -74,7 +74,7 @@ The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis
   
   
 
-# Test your TTS demo with continuous vocoder
+## Test your TTS demo with continuous vocoder
 
 If you want to test the trained version, `./tts_demo.sh` script will:
 
@@ -83,7 +83,7 @@ If you want to test the trained version, `./tts_demo.sh` script will:
 - Synthesise speech with continuous vocoder 
 
 
-# Continuous DNN-TTS Requirements
+## Continuous DNN-TTS Requirements
 
 You need to have installed:
 * compiles: ```bash tools/compile_tools.sh```
@@ -96,7 +96,10 @@ Contact Us
 ----------
 
 Post your questions, suggestions, and discussions to [GitHub Issues](https://github.com/malradhi/merlin/issues).
-[Speech Technology and Smart Interactions Laboratory] (http://smartlab.tmit.bme.hu/index-en) @ BME-TMIT
+
+[Speech Technology and Smart Interactions Laboratory](http://smartlab.tmit.bme.hu/index-en)
+
+BME-TMIT
 
 Citation
 --------
