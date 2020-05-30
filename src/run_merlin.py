@@ -1108,23 +1108,9 @@ def main_function(cfg):
                 ref_data_dir = os.path.join(data_dir, 'mvf')
             valid_mvf_mse = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.mvf_ext, cfg.mvf_dim)
             test_mvf_mse  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.mvf_ext, cfg.mvf_dim)
-            valid_mvf_mse = valid_mvf_mse / 10.0    ##Cassia's mvf is computed from 10*log|S(w)|. if use HTS/SPTK style, do the same as MGC
-            test_mvf_mse  = test_mvf_mse / 10.0    ##Cassia's mvf is computed from 10*log|S(w)|. if use HTS/SPTK style, do the same as MGC
+            valid_mvf_mse = valid_mvf_mse / 10.0    
+            test_mvf_mse  = test_mvf_mse / 10.0    
 			
-        # if 'bap' in cfg.in_dimension_dict:
-            # if cfg.remove_silence_using_binary_labels:
-                # untrimmed_reference_data = in_file_list_dict['bap'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number]
-                # trim_silence(untrimmed_reference_data, ref_bap_list, cfg.bap_dim, \
-                                    # untrimmed_test_labels, lab_dim, silence_feature)
-            # elif cfg.remove_silence_using_hts_labels:
-                # remover = SilenceRemover(n_cmp = cfg.bap_dim, silence_pattern = cfg.silence_pattern, label_type=cfg.label_type)
-                # remover.remove_silence(in_file_list_dict['bap'][cfg.train_file_number:cfg.train_file_number+cfg.valid_file_number+cfg.test_file_number], in_gen_label_align_file_list, ref_bap_list)
-            # else:
-                # ref_data_dir = os.path.join(data_dir, 'bap')
-            # valid_bap_mse = calculator.compute_distortion(valid_file_id_list, ref_data_dir, gen_dir, cfg.bap_ext, cfg.bap_dim)
-            # test_bap_mse  = calculator.compute_distortion(test_file_id_list , ref_data_dir, gen_dir, cfg.bap_ext, cfg.bap_dim)
-            # valid_bap_mse = valid_bap_mse / 10.0    ##Cassia's bap is computed from 10*log|S(w)|. if use HTS/SPTK style, do the same as MGC
-            # test_bap_mse  = test_bap_mse / 10.0    ##Cassia's bap is computed from 10*log|S(w)|. if use HTS/SPTK style, do the same as MGC
 
         if 'lf0' in cfg.in_dimension_dict:
             if cfg.remove_silence_using_binary_labels:
@@ -1252,11 +1238,6 @@ def main_function(cfg):
             logger.info('Test   : DNN -- MCD: %.3f dB; MVF: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
                     %(test_spectral_distortion , test_mvf_mse , test_f0_mse , test_f0_corr, test_vuv_error*100.))
 					
-        # else:
-            # logger.info('Develop: DNN -- MCD: %.3f dB; BAP: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
-                    # %(valid_spectral_distortion, valid_bap_mse, valid_f0_mse, valid_f0_corr, valid_vuv_error*100.))
-            # logger.info('Test   : DNN -- MCD: %.3f dB; BAP: %.3f dB; F0:- RMSE: %.3f Hz; CORR: %.3f; VUV: %.3f%%' \
-                    # %(test_spectral_distortion , test_bap_mse , test_f0_mse , test_f0_corr, test_vuv_error*100.))
 
 if __name__ == '__main__':
 	

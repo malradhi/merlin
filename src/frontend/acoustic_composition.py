@@ -134,24 +134,10 @@ class   AcousticComposition(AcousticBase):
                     features = features[0:out_frame_number, ]
                     frame_number = out_frame_number
                     
-#############################################################################					
-################## add #####################
-#                    
-#		if frame_number < out_frame_number:
-#                    features = features[0:out_frame_number, ]
-#                    out_frame_number = frame_number	
-#
-##############################################################################
-############### Modify ######################################
-
                     
 		if frame_number < out_frame_number:
                     features = features[0:frame_number, ]
                     out_frame_number = frame_number	
-
-
-###############################################################################
-
 
                 
                 try:
@@ -219,8 +205,6 @@ if __name__ == '__main__':
                            'lf0' : 3,
                            'vuv' : 1,
                            'mvf' : 3}
-
-
 
 
     
