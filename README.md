@@ -1,12 +1,8 @@
 # Fully Text-To-Speech Demo using Continuous Vocoder
 
 
-[![Build Status](https://travis-ci.org/malradhi/merlin.svg?branch=master)](https://travis-ci.org/malradhi/merlin)
-<p align="center">
-<a href="#badge">
-<img alt="semantic-release" src="https://img.shields.io/badge/SmartLab-malradhi-blue">
-</a>
-</p>
+[![Build Status](https://travis-ci.org/malradhi/merlin.svg?branch=master)](https://travis-ci.org/malradhi/merlin)[https://img.shields.io/badge/SmartLab-malradhi-blue]
+
 
 This repository contains a TTS system based on Continuous vocoder developed at the Speech Technology and Smart Interactions Laboratory (SmartLab), Budapest University of Technology and Economics.
 
