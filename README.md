@@ -52,7 +52,8 @@ It also creates a global config file: `conf/global_settings.cfg`, where default 
 ├── misc
 │   └── scripts
 │       └── vocoder
-│	        └── continuous
+│	        ├── continuous
+│           └── ...
 ├── egs                     
 │   └── slt_arctic
 │       └── s1
