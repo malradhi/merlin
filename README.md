@@ -44,8 +44,8 @@ OR
 
 It also creates a global config file: `conf/global_settings.cfg`, where default settings are stored.
 
+<p><strong>Directory structure:</strong> </p>
 
-### Directory structure
 
 ```none
 .
