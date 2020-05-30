@@ -138,7 +138,7 @@ Post your questions, suggestions, and discussions to [GitHub Issues](https://git
 Citation
 --------
 
-If you publish work based on Continuous+Merlin TTS, please cite: 
+If you publish work based on <p><strong>Continuous+Merlin</strong> </p> TTS, please cite: 
 
 Al-Radhi M.S., Csapó T.G., Németh G. (2017) [Deep Recurrent Neural Networks in Speech Synthesis Using a Continuous Vocoder](https://link.springer.com/content/pdf/10.1007%2F978-3-319-66429-3_27.pdf). In: Karpov A., Potapova R., Mporas I. (eds) Speech and Computer. SPECOM 2017. Lecture Notes in Computer Science, vol 10458. Springer, Cham, Hatfield, UK.
 
