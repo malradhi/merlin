@@ -33,4 +33,4 @@ install:
 
 script:
   - export MKL_THREADING_LAYER=GNU
-  - cd $TRAVIS_BUILD_DIR/egs/slt_arctic/s1 && ./run_demo.sh
+  - cd $TRAVIS_BUILD_DIR/egs/slt_arctic/s1 && ./run_full_voice.sh
