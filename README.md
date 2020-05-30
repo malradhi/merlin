@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/malradhi/merlin.svg?branch=master)](https://travis-ci.org/malradhi/merlin)
 
+<a href="#badge">
+<img alt="semantic-release" src="https://img.shields.io/badge/SmartLab-malradhi-blue">
+</a>
 
 This repository contains a TTS system based on Continuous vocoder developed at the Speech Technology and Smart Interactions Laboratory (SmartLab), Budapest University of Technology and Economics.
 
