@@ -1,9 +1,4 @@
-# SLT Arctic TTS Demo using MagPhase Vocoder
-
-## Continuous Vocoder in DNN-TTS system
-
-It is a Text-To-Speech demo using the continuous vocoder.
-
+# Fully Text-To-Speech Demo using Continuous Vocoder
 
 As a difference with other traditonal statistical, it focuses on extracting continuous parameters:
 * Fondamental Frequency (F0)
