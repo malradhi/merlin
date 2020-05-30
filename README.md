@@ -14,7 +14,7 @@ As a difference with other traditonal statistical parametric vocoders, continuou
 
 ## Continuous DNN-TTS
 
-Besides feed-forward deep neural network, this demo also supports recurrent neural networks:
+Besides feed-forward neural networks, this demo also supports recurrent neural networks (RNNs):
 
 * Long short-term memory  (LSTM) 
 * Bidirectional LSTM     (BLSTM)
