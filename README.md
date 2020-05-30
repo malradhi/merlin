@@ -1,6 +1,32 @@
 [![Build Status](https://travis-ci.org/CSTR-Edinburgh/merlin.svg?branch=master)](https://travis-ci.org/CSTR-Edinburgh/merlin)
 
 ## Continuous Vocoder in DNN-TTS system
+
+It is a Text-To-Speech demo using the continuous vocoder.
+
+
+As a difference with other traditonal statistical, it focuses on extracting continuous parameters:
+* Fondamental Frequency (F0)
+* Maximum voice Freuqency (MVF)
+* Mel-Generalized Cepstral (MGC) 
+
+Basically, ```run_full_data.sh``` script will:
+
+1. Download the input data for you.
+2. Create the experiment directory in ```./experiments```.
+3. Perform acoustic feature extraction with continuous vocoder.
+4. Build and train duration and acoustic models using Merlin.
+5. Synthesise waveforms using predicted durations. The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis/wav```
+
+
+If you want to test the trained version, ```tts_demo.sh``` script will
+
+1. Create the txt directory in ```./experiments/slt_arctic_full/test_synthesis```.
+2. ask you to enter a new sentenece.
+3. Synthesise speech with continuous vocoder 
+
+
+
 ##
 ##
 ##

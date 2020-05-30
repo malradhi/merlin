@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if test "$#" -ne 0; then
-    echo "Usage: ./merlin_synthesis.sh"
+    echo "Usage: ./tts_demo.sh"
     exit 1
 fi
 
@@ -19,6 +19,19 @@ testDir=experiments/${Voice}/test_synthesis
 
 txt_dir=${testDir}/txt
 txt_file=${testDir}/utts.data
+
+
+mkdir -p ${txt_dir}
+printf 'Hello AI World' > ${txt_dir}/test_tts.txt
+
+echo ""
+echo "Last sentense was: $(<${txt_dir}/test_tts.txt)"
+echo""
+echo "Type the new sentense that you want to hear, followed by [ENTER]:"
+echo ""
+read KEEPTHISMESSAGE
+echo $KEEPTHISMESSAGE > ${txt_dir}/test_tts.txt
+
 
 if [[ ! -d "${txt_dir}" ]] && [[ ! -f "${txt_file}" ]]; then
     echo "Please give text as input: either 1 or 2"
