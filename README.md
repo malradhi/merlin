@@ -1,6 +1,16 @@
 # Fully Text-To-Speech Demo using Continuous Vocoder
 
-As a difference with other traditonal statistical, it focuses on extracting continuous parameters:
+
+
+
+
+
+
+[![Build Status](https://travis-ci.org/malradhi/merlin.svg?branch=master)](https://travis-ci.org/malradhi/merlin)
+
+
+
+As a difference with other traditonal statistical parametric vocoders, continuous model focuses on extracting continuous parameters:
 * Fondamental Frequency (F0)
 * Maximum voice Freuqency (MVF)
 * Mel-Generalized Cepstral (MGC) 
@@ -101,12 +111,6 @@ To synthesize speech:
 ```sh
 ./05_run_merlin.sh <path_to_test_dur_conf_file> <path_to_test_synth_conf_file>
 ```
-
-
-
-
-
-
 
 
 
