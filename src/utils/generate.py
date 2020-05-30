@@ -319,20 +319,11 @@ def wavgen_magphase(gen_dir, file_id_list, cfg, logger):
 def wavgen_continuous(gen_dir):
 
     # Import continuous libraries   
-
-    import glob, os
-
-    '''
-    for filename in glob.iglob(os.path.join(gen_dir, '*.mgc')):
-        os.rename(filename, filename[:-4] + '.mgcep')
-   '''
-    
+    import os    
     cur_dir = os.getcwd()
-
     os.chdir("../../../misc/scripts/vocoder/continuous/")
     command = 'python3 cont_speech_synthesis.py '+gen_dir+'/'
     os.system(command)
-
     os.chdir(cur_dir)
     
     return

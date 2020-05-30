@@ -19,11 +19,22 @@ Basically, ```run_full_data.sh``` script will:
 5. Synthesise waveforms using predicted durations. The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis/wav```
 
 
+## Build your demo with continuous vocoder
+
+
 If you want to test the trained version, ```tts_demo.sh``` script will
 
 1. Create the txt directory in ```./experiments/slt_arctic_full/test_synthesis```.
 2. ask you to enter a new sentenece.
 3. Synthesise speech with continuous vocoder 
+
+
+
+## Requirements
+
+You need to have installed:
+* festival: ```bash tools/compile_other_speech_tools.sh```
+* htk: ```bash tools/compile_htk.sh``
 
 
 

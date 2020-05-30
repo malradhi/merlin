@@ -64,7 +64,7 @@ class   BinaryIOCollection(object):
         fid_lab = open(file_name, 'rb')
         features = numpy.fromfile(fid_lab, dtype=numpy.float32)
         fid_lab.close()
-        ###assert features.size % float(dimension) == 0.0,'specified dimension %s not compatible with data'%(dimension)    # ... Mohammed
+        
         frame_number = features.size // dimension
         features = features[:(dimension * frame_number)]
         features = features.reshape((-1, dimension))
