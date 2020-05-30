@@ -56,6 +56,7 @@ It also creates a global config file: `conf/global_settings.cfg`, where default 
 ├── egs                     
 │   └── slt_arctic
 │       └── s1
+│           ├── run_full_voice.sh
 │           ├── conf
 │           ├── scripts
 │           └── experiments
