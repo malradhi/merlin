@@ -1,11 +1,5 @@
 # Fully Text-To-Speech Demo using Continuous Vocoder
 
-
-
-
-
-
-
 [![Build Status](https://travis-ci.org/malradhi/merlin.svg?branch=master)](https://travis-ci.org/malradhi/merlin)
 
 
@@ -15,67 +9,28 @@ As a difference with other traditonal statistical parametric vocoders, continuou
 * Maximum voice Freuqency (MVF)
 * Mel-Generalized Cepstral (MGC) 
 
-Basically, ```run_full_data.sh``` script will:
 
-1. Download the input data for you.
-2. Create the experiment directory in ```./experiments```.
-3. Perform acoustic feature extraction with continuous vocoder.
-4. Build and train duration and acoustic models using Merlin.
-5. Synthesise waveforms using predicted durations. The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis/wav```
-
-
-## Build your demo with continuous vocoder
-
-
-If you want to test the trained version, ```tts_demo.sh``` script will
-
-1. Create the txt directory in ```./experiments/slt_arctic_full/test_synthesis```.
-2. ask you to enter a new sentenece.
-3. Synthesise speech with continuous vocoder 
-
-
-
-## Requirements
-
-You need to have installed:
-* festival: ```bash tools/compile_other_speech_tools.sh```
-* htk: ```bash tools/compile_htk.sh``
-
-
-
-##
-##
-##
-#
-#
-#
-#
-#
-
-
-
-# TTS Demo using Continuous Vocoder
 
 
 To run this demo, `cd egs/slt_arctic/s1` and follow the below steps:
 
+Basically, ```run_full_data.sh``` script will:
+
 ## Setting up
 
-The first step is to run setup as it creates directories and downloads the required training data files.
-
-To see the list of available voices, run:
+The first step is to check continuous vocoder requirements in your system.
 ```sh
-./01_setup.sh
+./01_chk_rqmts.sh
 ```
-The next steps demonstrate on how to setup slt arctic voice. 
 
-- To run on short data(about 50 utterances for training)
+The second step is to run setup as it creates directories in ```./experiments``` and downloads the required training data files.
+
 ```sh
-./01_setup.sh slt_arctic_demo
+./02_setup.sh slt_arctic_full
 ```
-- To run on full data(about 1000 sentences for training)
+OR
 ```sh
-./01_setup.sh slt_arctic_full
+./02_setup.sh bdl_arctic_full
 ```
 
 It also creates a global config file: `conf/global_settings.cfg`, where default settings are stored.
@@ -88,54 +43,67 @@ At this point, we have to prepare two config files to train DNN models
 
 To prepare config files:
 ```sh
-./02_prepare_conf_files.sh conf/global_settings.cfg
+./03_prepare_conf_files.sh conf/global_settings.cfg
 ```
-Four config files will be generated: two for training, and two for testing. 
 
 ## Train duration model
 
 To train duration model:
 ```sh
-./03_train_duration_model.sh <path_to_duration_conf_file>
+./04_train_duration_model.sh conf/duration_slt_arctic_full.conf
 ```
 
 ## Train acoustic model
 
 To train acoustic model:
 ```sh
-./04_train_acoustic_model.sh <path_to_acoustic_conf_file>
+./05_train_acoustic_model.sh conf/acoustic_slt_arctic_full.conf
 ```
 ## Synthesize speech
 
-To synthesize speech:
+To synthesize speech with continuous vocoder:
 ```sh
-./05_run_merlin.sh <path_to_test_dur_conf_file> <path_to_test_synth_conf_file>
+./06_run_merlin.sh conf/test_dur_synth_slt_arctic_full.conf conf/test_synth_slt_arctic_full.conf
 ```
+The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis/wav```
+
+
+
+# Test your TTS demo with continuous vocoder
+
+## Requirements
+
+You need to have installed:
+* festival: ```bash tools/compile_other_speech_tools.sh```
+* htk: ```bash tools/compile_htk.sh``
+
+## If you want to test the trained version, ```tts_demo.sh``` script will
+
+1. Create the txt directory in ```./experiments/slt_arctic_full/test_synthesis```.
+2. ask you to enter a new sentenece.
+3. Synthesise speech with continuous vocoder 
 
 
 
 
 
-[![Build Status](https://travis-ci.org/CSTR-Edinburgh/merlin.svg?branch=master)](https://travis-ci.org/CSTR-Edinburgh/merlin)
+Contact Us
+----------
 
-## Merlin: The Neural Network (NN) based Speech Synthesis System
+Post your questions, suggestions, and discussions to [GitHub Issues](https://github.com/malradhi/merlin/issues).
+"[Speech Technology and Smart Interactions Laboratory] (http://smartlab.tmit.bme.hu/index-en)"
 
-This repository contains the Neural Network (NN) based Speech Synthesis System  
-developed at the Centre for Speech Technology Research (CSTR), University of 
-Edinburgh. 
+Citation
+--------
 
-Merlin is a toolkit for building Deep Neural Network models for statistical parametric speech synthesis. 
-It must be used in combination with a front-end text processor (e.g., Festival) and a vocoder (e.g., STRAIGHT or WORLD).
+If you publish work based on Continuous+Merlin TTS, please cite: 
 
-The system is written in Python and relies on the Theano numerical computation library.
+Al-Radhi M.S., Csapó T.G., Németh G. (2017) "[Deep Recurrent Neural Networks in Speech Synthesis Using a Continuous Vocoder] (https://link.springer.com/content/pdf/10.1007%2F978-3-319-66429-3_27.pdf)". In: Karpov A., Potapova R., Mporas I. (eds) Speech and Computer. SPECOM 2017. Lecture Notes in Computer Science, vol 10458. Springer, Cham, Hatfield, UK.
 
-Merlin comes with recipes (in the spirit of the [Kaldi](https://github.com/kaldi-asr/kaldi) automatic speech recognition toolkit) to show you how to build state-of-the art systems.
 
-Merlin is free software, distributed under an Apache License Version 2.0, allowing unrestricted commercial and non-commercial use alike.
 
-Read the documentation at [cstr-edinburgh.github.io/merlin](https://cstr-edinburgh.github.io/merlin/).
+# Merlin: The Neural Network (NN) based Speech Synthesis System
 
-Merlin is compatible with: __Python 2.7-3.6__.
 
 Installation
 ------------
@@ -160,50 +128,4 @@ bash tools/compile_tools.sh
 pip install -r requirements.txt
 ```
 
-For detailed instructions, to build the toolkit: see [INSTALL](https://github.com/CSTR-Edinburgh/merlin/blob/master/INSTALL.md) and [CSTR blog post](https://cstr-edinburgh.github.io/install-merlin/).  
-These instructions are valid for UNIX systems including various flavors of Linux;
-
-
-Getting started with Merlin
----------------------------
-
-To run the example system builds, see `egs/README.txt`
-
-As a first demo, please follow the scripts in `egs/slt_arctic`
-
-Now, you can also follow Josh Meyer's [blog post](http://jrmeyer.github.io/tts/2017/02/14/Installing-Merlin.html) for detailed instructions <br/> on how to install Merlin and build SLT demo voice.
-
-For a more in-depth tutorial about building voices with Merlin, you can check out:
-
-- [Deep Learning for Text-to-Speech Synthesis, using the Merlin toolkit (Interspeech 2017 tutorial)](http://www.speech.zone/courses/one-off/merlin-interspeech2017)
-- [Arctic voices](https://cstr-edinburgh.github.io/merlin/getting-started/slt-arctic-voice)
-- [Build your own voice](https://cstr-edinburgh.github.io/merlin/getting-started/build-own-voice)
-
-
-Synthetic speech samples
-------------------------
-
-Listen to [synthetic speech samples](https://cstr-edinburgh.github.io/merlin/demo.html) from our SLT arctic voice.
-
-Development pattern for contributors
-------------------------------------
-
-1. [Create a personal fork](https://help.github.com/articles/fork-a-repo/)
-of the [main Merlin repository](https://github.com/CSTR-Edinburgh/merlin) in GitHub.
-2. Make your changes in a named branch different from `master`, e.g. you create
-a branch `my-new-feature`.
-3. [Generate a pull request](https://help.github.com/articles/creating-a-pull-request/)
-through the Web interface of GitHub.
-
-Contact Us
-----------
-
-Post your questions, suggestions, and discussions to [GitHub Issues](https://github.com/CSTR-Edinburgh/merlin/issues).
-
-Citation
---------
-
-If you publish work based on Merlin, please cite: 
-
-Zhizheng Wu, Oliver Watts, Simon King, "[Merlin: An Open Source Neural Network Speech Synthesis System](https://isca-speech.org/archive/SSW_2016/pdfs/ssw9_PS2-13_Wu.pdf)" in Proc. 9th ISCA Speech Synthesis Workshop (SSW9), September 2016, Sunnyvale, CA, USA.
 
