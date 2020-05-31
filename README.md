@@ -8,8 +8,8 @@ This repository contains a TTS system based on Continuous vocoder developed at t
 
 As a difference with other traditonal statistical parametric vocoders, continuous model focuses on extracting continuous parameters:
 
-* Fondamental Frequency (F0)
-* Maximum voice Freuqency (MVF)
+* Fundamental Frequency (F0)
+* Maximum Voiced Freuqency (MVF)
 * Mel-Generalized Cepstral (MGC) 
 
 <p align="center"><img width="90%" src="model.png" /></p>
@@ -109,7 +109,10 @@ The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis
 
  
   
-  
+<p><br /> 
+<br /></p>
+<p><br /> 
+<br /></p>
 
 ## Test TTS demo with continuous vocoder
 
@@ -120,6 +123,12 @@ If you want to test the trained version, `./tts_demo.sh` script will:
 - Synthesise speech with continuous vocoder 
 
 
+
+<p><br /> 
+<br /></p>
+<p><br /> 
+<br /></p>
+
 ## Installation
 
 You need to have installed:
@@ -129,6 +138,9 @@ You need to have installed:
 * python dependencies: ```pip install -r requirements.txt```
 
 
+<p><br /> 
+<br /></p>
+
 Contact Us
 ----------
 
@@ -136,6 +148,9 @@ Post your questions, suggestions, and discussions to [GitHub Issues](https://git
 
 [Speech Technology and Smart Interactions Laboratory](http://smartlab.tmit.bme.hu/index-en)
 
+
+<p><br /> 
+<br /></p>
 
 Citation
 --------
