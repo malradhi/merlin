@@ -68,7 +68,7 @@ if [[ ! -d ${data_dir} ]] || [[ -n "$do_unzip" ]]; then
     mv ${data_dir}/merlin_baseline_practice/test_data/ ${synthesis_dir}
 fi
 
-rm -f ${voice_name}.zip
+# rm -f ${voice_name}.zip
 
 echo "data is ready!"
 
