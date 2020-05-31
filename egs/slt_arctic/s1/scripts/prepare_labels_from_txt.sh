@@ -39,8 +39,9 @@ elif [ -f "${txt_file}" ]; then
     in_txt=${txt_file}
 else
     echo "Please give input: either 1 or 2"
-    echo "1. ${txt_dir}  -- a text directory containing text files"
-    echo "2. ${txt_file} -- a single text file with each sentence in a new line in festival format"
+	echo "1. enter text directly from the command line"
+    echo "2. ${txt_dir}  -- a text directory containing text files"
+    echo "3. ${txt_file} -- a single text file with each sentence in a new line in festival format"
     exit 1
 fi
 

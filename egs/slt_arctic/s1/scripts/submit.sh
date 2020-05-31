@@ -38,7 +38,7 @@ else
     # Assign GPU manually...
     gpu_id=0
 
-    # Run the input command (run_merlin.py) with its arguments
+    # Run the input command (the new run_merlin.py) with its arguments
     THEANO_FLAGS="mode=FAST_RUN,device=gpu$gpu_id,"$MERLIN_THEANO_FLAGS
     export THEANO_FLAGS
  
