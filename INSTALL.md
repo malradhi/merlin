@@ -66,5 +66,5 @@ sudo env "PATH=$PATH" pip install lxml
 ```
 
 #### For all stand-alone machines:
-- If you are not a sudo user, this [post](https://cstr-edinburgh.github.io/install-merlin/) may help you install Merlin.
+- If you are not a sudo user, this [post](https://cstr-edinburgh.github.io/install-merlin/) may help you install Merlin..
 
