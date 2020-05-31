@@ -1,5 +1,5 @@
 Credits
-=======
+========
   - Showdown v0
     * [Srikanth Ronanki](https://github.com/ronanki)<br/>
       Bug fixing and current Github project maintainer

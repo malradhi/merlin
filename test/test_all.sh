@@ -3,7 +3,7 @@
 # This script has to be run in its directory, as shows the usage.
 
 
-#  main ------------------------------------------------------------------------
+#  main -------------------------------------------------------------------------
 
 if test "$#" -ne 0; then
     echo "Usage: ./test_all.sh"
