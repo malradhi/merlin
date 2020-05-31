@@ -131,9 +131,10 @@ If you want to test the trained version, `./tts_demo.sh` script will:
 
 You need to have installed:
 * compiles: ```bash tools/compile_tools.sh```
-* festival: ```bash tools/compile_other_speech_tools.sh```
-* htk: ```bash tools/compile_htk.sh``` (register [her](http://htk.eng.cam.ac.uk/register.shtml))
 * python dependencies: ```pip install -r requirements.txt```
+* festival: ```bash tools/compile_other_speech_tools.sh```
+* htk: ```bash tools/compile_htk.sh username password``` (please register [her](http://htk.eng.cam.ac.uk/register.shtml))
+
 
 
 <p><br /> 
