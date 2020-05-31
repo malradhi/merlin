@@ -9,3 +9,8 @@ Credits
       Main contributor
     * [Oliver Watts](http://homepages.inf.ed.ac.uk/owatts/)<br/>
       Main contributor
+	  
+  
+  - Continuous vocoder
+    * [M.S. Al-Radhi](https://github.com/malradhi)<br/>
+      New vocoder introduced

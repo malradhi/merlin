@@ -11,6 +11,10 @@ bash tools/compile_tools.sh
 pip install -r requirements.txt
 ```
 
+## Continuous vocoder requirements
+
+- Detailed can be found here: merlin/misc/scripts/vocoder/continuous
+
 ## More advanced instructions
 
 1. go to `tools/`  and follow INSTALL instructions there.
