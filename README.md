@@ -111,8 +111,7 @@ The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis
   
 <p><br /> 
 <br /></p>
-<p><br /> 
-<br /></p>
+
 
 ## Test TTS demo with continuous vocoder
 
@@ -126,8 +125,7 @@ If you want to test the trained version, `./tts_demo.sh` script will:
 
 <p><br /> 
 <br /></p>
-<p><br /> 
-<br /></p>
+
 
 ## Installation
 
