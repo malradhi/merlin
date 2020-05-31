@@ -34,7 +34,7 @@ mkdir -p ${duration_dir}
 
 echo "downloading data....."
 
-
+ 
 if [ "$voice_name" == "slt_arctic_full" ]
 then
 	if [[ ! -f ${voice_name}.zip ]]; then
