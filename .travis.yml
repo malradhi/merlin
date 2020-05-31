@@ -29,7 +29,7 @@ before_install:
   - source activate test-environment
 
 install:
-  - pip install -r requirements.txt
+  - pip install pysptk
 
 script:
   - export MKL_THREADING_LAYER=GNU
