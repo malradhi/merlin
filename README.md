@@ -133,7 +133,7 @@ You need to have installed:
 * compiles: ```bash tools/compile_tools.sh```
 * python dependencies: ```pip install -r requirements.txt```
 * festival: ```bash tools/compile_other_speech_tools.sh```
-* HTK (please register [her](http://htk.eng.cam.ac.uk/register.shtml)): ```bash tools/compile_htk.sh username password``` 
+* HTK (please register [here](http://htk.eng.cam.ac.uk/register.shtml)): ```bash tools/compile_htk.sh username password``` 
 
 
 
