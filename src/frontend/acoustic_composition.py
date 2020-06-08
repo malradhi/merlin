@@ -37,6 +37,13 @@
 #  THIS SOFTWARE.
 ################################################################################
 
+import sys
+import os
+sys.path.append(os.path.dirname(__file__))
+
+
+
+
 from io_funcs.binary_io import BinaryIOCollection
 import numpy
 import logging
@@ -133,9 +140,8 @@ class   AcousticComposition(AcousticBase):
                 if frame_number > out_frame_number:
                     features = features[0:out_frame_number, ]
                     frame_number = out_frame_number
-                    
-                    
-		if frame_number < out_frame_number:
+
+                if frame_number < out_frame_number:
                     features = features[0:frame_number, ]
                     out_frame_number = frame_number	
 
