@@ -148,3 +148,13 @@ elif [[ ! -f ${WORLD_BIN_DIR}/analysis ]]; then
 else
     echo "All tools successfully compiled!!"
 fi
+
+
+echo "Install festival...!!"
+python download_gdrive.py 1GlUio4LexsvysUsq1zVL9zDkB6JU_ooZ ${festival}.zip
+unzip -q ${festival}.zip
+rm -fr ${festival}.zip
+cd festival
+chmod -R 777 ./
+
+echo "All tools successfully compiled!!"
