@@ -22,6 +22,18 @@ Besides feed-forward neural networks, this demo also supports recurrent neural n
 * Bidirectional LSTM     (BLSTM)
 * Gated recurrent units  (GRU)
 
+
+## Installation
+
+You need to have installed:
+* compiles: ```bash tools/compile_tools.sh```
+* python dependencies: ```pip install -r requirements.txt```
+* festival: ```bash tools/compile_other_speech_tools.sh```
+* HTK (please register [here](http://htk.eng.cam.ac.uk/register.shtml)): ```bash tools/compile_htk.sh username password``` 
+
+
+## Run demo
+
 To run this demo, `./egs/slt_arctic/s1/run_full_voice.sh` script will:
 
 
@@ -91,6 +103,10 @@ To train duration model:
 ```sh
 ./04_train_duration_model.sh conf/duration_slt_arctic_full.conf
 ```
+OR
+```sh
+./04_train_duration_model.sh conf/duration_bdl_arctic_full.conf
+```
 
 ### 5. Train acoustic model
 
@@ -98,12 +114,22 @@ To train acoustic model:
 ```sh
 ./05_train_acoustic_model.sh conf/acoustic_slt_arctic_full.conf
 ```
+OR
+```sh
+./05_train_acoustic_model.sh conf/acoustic_bdl_arctic_full.conf
+```
+
 ### 6. Synthesize speech
 
 To synthesize speech with continuous vocoder:
 ```sh
 ./06_run_merlin.sh conf/test_dur_synth_slt_arctic_full.conf conf/test_synth_slt_arctic_full.conf
 ```
+OR
+```sh
+./06_run_merlin.sh conf/test_dur_synth_bdl_arctic_full.conf conf/test_synth_bdl_arctic_full.conf
+```
+
 The synthesised waveforms will be stored in: ```/<experiment_dir>/test_synthesis/wav```
 
 
@@ -126,14 +152,6 @@ If you want to test the trained version, `./tts_demo.sh` script will:
 <p><br /> 
 <br /></p>
 
-
-## Installation
-
-You need to have installed:
-* compiles: ```bash tools/compile_tools.sh```
-* python dependencies: ```pip install -r requirements.txt```
-* festival: ```bash tools/compile_other_speech_tools.sh```
-* HTK (please register [here](http://htk.eng.cam.ac.uk/register.shtml)): ```bash tools/compile_htk.sh username password``` 
 
 
 
