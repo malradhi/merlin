@@ -17,7 +17,9 @@ else
 fi
 
 ### define few variables here
-testDir=experiments/${Voice}/test_synthesis
+current_working_dir=$(pwd)
+testDir=${current_working_dir}/experiments/${Voice}/test_synthesis
+
 
 txt_dir=${testDir}/txt
 txt_file=${testDir}/utts.data
