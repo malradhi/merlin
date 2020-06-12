@@ -24,8 +24,8 @@ command -v octave >/dev/null 2>&1 || { echo -e >&2 "\nOctave is not found, but c
 # festival
 current_working_dir=$(pwd)
 cd /usr/share/doc/festival/examples/
-gunzip -f dumpfeats.gz
-gunzip -f dumpfeats.sh.gz
+sudo gunzip -f dumpfeats.gz
+sudo gunzip -f dumpfeats.sh.gz
 chmod a+rx /usr/share/doc/festival/examples/dumpfeats
 chmod a+rx /usr/share/doc/festival/examples/dumpfeats.sh
 cd $current_working_dir
