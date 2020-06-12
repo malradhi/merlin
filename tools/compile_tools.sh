@@ -150,11 +150,4 @@ else
 fi
 
 
-echo "Install festival...!!"
-python download_gdrive.py 1zI5dsEVtUwmH1EpQjg9kktLqtRFkyGa8 festival.zip
-unzip -q festival.zip
-rm -fr festival.zip
-cd festival
-chmod -R 777 ./
-
 echo "All tools successfully compiled!!"

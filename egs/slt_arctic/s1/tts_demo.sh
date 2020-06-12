@@ -1,7 +1,5 @@
 #!/bin/bash
 
-chmod u+x *.sh
-
 if test "$#" -ne 0; then
     echo "Usage: ./tts_demo.sh"
     exit 1
