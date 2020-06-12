@@ -148,6 +148,3 @@ elif [[ ! -f ${WORLD_BIN_DIR}/analysis ]]; then
 else
     echo "All tools successfully compiled!!"
 fi
-
-
-echo "All tools successfully compiled!!"
