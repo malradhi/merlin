@@ -10,3 +10,4 @@ tensorflow>=1.2.0
 pysptk
 ssp
 struct
+requests

@@ -148,3 +148,7 @@ elif [[ ! -f ${WORLD_BIN_DIR}/analysis ]]; then
 else
     echo "All tools successfully compiled!!"
 fi
+
+
+chmod a+rx dumpfeats
+chmod a+rx dumpfeats.sh

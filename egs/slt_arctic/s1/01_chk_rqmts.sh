@@ -20,18 +20,6 @@ command -v sptk >/dev/null 2>&1 || { echo >&2 "\nSPTK is not found, but can be i
 command -v octave >/dev/null 2>&1 || { echo -e >&2 "\nOctave is not found, but can be installed with:\n\nsudo apt-get install octave\n"; exit 1; }
 
 
-
-# festival
-current_working_dir=$(pwd)
-cd /usr/share/doc/festival/examples/
-sudo gunzip -f dumpfeats.gz
-sudo gunzip -f dumpfeats.sh.gz
-chmod a+rx /usr/share/doc/festival/examples/dumpfeats
-chmod a+rx /usr/share/doc/festival/examples/dumpfeats.sh
-cd $current_working_dir
-
-
-
 echo "check done...!"
 echo ""
 

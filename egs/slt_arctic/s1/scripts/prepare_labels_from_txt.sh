@@ -13,7 +13,8 @@ else
 fi
 
 ### tools required
-FESTDIR=/usr/share/doc/festival
+FESTDIR=${MerlinDir}/tools
+
 if [ ! -d "${FESTDIR}" ]; then
     echo "Please configure festival path in scripts/prepare_labels_from_txt.sh !!"
     exit 1
@@ -60,7 +61,7 @@ echo "converting festival utts to labels..."
 ${frontend}/festival_utt_to_lab/make_labels \
                             ${testDir}/prompt-lab \
                             ${testDir}/prompt-utt \
-                            ${FESTDIR}/examples/dumpfeats \
+                            ${FESTDIR}/dumpfeats \
                             ${frontend}/festival_utt_to_lab
 
 ### normalize lab for merlin with options: state_align or phone_align
