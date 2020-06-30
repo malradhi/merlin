@@ -174,7 +174,7 @@ Citation
 
 <p>If you publish work based on <strong>Continuous TTS</strong>, please cite: </p>
 
-* Al-Radhi M.S., Csapó T.G., Németh G. (2020);<a style="color:blue;">conTTS: Text-to-Speech Application using a Continuous Vocoder</a>. In: Submitted to Interspeech 2020, Show&Tell. [Audio Samples](https://malradhi.github.io/conTTS/).</p>
+* Al-Radhi M.S., Csapó T.G., Németh G. (2020) <a style="color:blue;">conTTS: Text-to-Speech Application using a Continuous Vocoder</a>. In: Submitted to Interspeech 2020, Show&Tell. [Audio Samples](https://malradhi.github.io/conTTS/).</p>
 
 * Al-Radhi M.S., Csapó T.G., Németh G. (2017) [Deep Recurrent Neural Networks in Speech Synthesis Using a Continuous Vocoder](https://link.springer.com/content/pdf/10.1007%2F978-3-319-66429-3_27.pdf). In: Karpov A., Potapova R., Mporas I. (eds) Speech and Computer. SPECOM 2017. Lecture Notes in Computer Science, vol 10458. Springer, Cham, Hatfield, UK.</p>
 
