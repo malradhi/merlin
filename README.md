@@ -174,7 +174,7 @@ Citation
 
 <p>If you publish work based on <strong>Continuous TTS</strong>, please cite: </p>
 
-* Al-Radhi M.S., Csapó T.G., Németh G. (2020) conTTS: Text-to-Speech Application using a Continuous Vocoder. In: Submitted to ISSP 2020. [Audio Samples](https://malradhi.github.io/conTTS/).</p>
+* Al-Radhi M.S., Csapó T.G., Németh G. (2020) conTTS: Text-to-Speech Application using a Continuous Vocoder. In:  Accepted  to ISSP 2020. [Audio Samples](https://malradhi.github.io/conTTS/).</p>
 
 * Al-Radhi M.S., Csapó T.G., Németh G. (2020) [Continuous Noise Masking Based Vocoder for Statistical Parametric Speech Synthesis](https://www.jstage.jst.go.jp/article/transinf/E103.D/5/E103.D_2019EDP7167/_pdf/-char/en). IEICE Transactions on Information and Systems, E103.D(5), pp. 1099-1107. [Audio Samples](http://smartlab.tmit.bme.hu/cNM2019).</p>
 
