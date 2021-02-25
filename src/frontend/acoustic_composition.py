@@ -74,7 +74,7 @@ class   AcousticComposition(AcousticBase):
 
         utt_number = len(in_file_list)
 
-        for i in xrange(utt_number):
+        for i in range(utt_number):
             in_file_name = in_file_list[i]
             in_data_stream_name = in_file_name.split('.')[-1]
             in_feature_dim = in_dimension_dict[in_data_stream_name]
