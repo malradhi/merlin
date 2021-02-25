@@ -1,7 +1,7 @@
 numpy
 scipy
 scikit-learn
-matplotlib
+matplotlib>=3.3.4
 bandmat>=0.5
 theano>=0.8
 keras>=2.0.5
@@ -11,3 +11,4 @@ pysptk
 ssp
 struct
 requests
+tqdm>=4.57.0
