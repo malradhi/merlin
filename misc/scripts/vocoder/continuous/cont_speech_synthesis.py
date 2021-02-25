@@ -204,7 +204,7 @@ def mgc_get_residual(basefilename):
     
     # wav, mgcep -> residual
     command = 'sptk x2x +sf ' + in_raw + ' | ' + \
-        'mglsadf -k -v -a ' + str(alpha) + ' -c 3 -m ' + str(order) + ' -p ' + \
+        'sptk mglsadf -k -v -a ' + str(alpha) + ' -c 3 -m ' + str(order) + ' -p ' + \
         str(frshft) + ' ' + in_mgcep + ' | ' + \
         'sptk x2x +fs | sox -c 1 -e signed-integer -b 16 -t raw -r ' + str(Fs) + ' - ' + \
         '-c 1 -e signed-integer -b 16 -t wav -r ' + str(Fs) + ' ' + in_resid
@@ -289,7 +289,7 @@ def mgc_decoder_residual_without_envelope(pitch, mvf, mgc_coeff, resid_codebook_
     io_wav.write(gen_path + basefilename + '_source_float32.wav', Fs, scaled_source)
     
     command = 'sox ' + gen_path + basefilename + '_source_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
-              'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
+              'sptk mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
               ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
               'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_without_envelope_0.wav'
     ###print(command)
@@ -328,7 +328,7 @@ def mgc_decoder_pulsenoise(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilena
     io_wav.write(gen_path + basefilename + '_source_pulsenoise_float32.wav', Fs, scaled_source)
     
     command = 'sox ' + gen_path + basefilename + '_source_pulsenoise_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
-              'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
+              'sptk mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
               ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
               'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_pulsenoise_0.wav'
     ###print(command)
@@ -362,7 +362,7 @@ def mgc_filter_residual(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename)
     
     # raw, mgcep -> residual
     command = 'sptk x2x +sf ' + in_raw + ' | ' + \
-        'mglsadf -k -v -a ' + str(alpha) + ' -c 3 -m ' + str(order) + ' -p ' + \
+        'sptk mglsadf -k -v -a ' + str(alpha) + ' -c 3 -m ' + str(order) + ' -p ' + \
         str(frshft) + ' ' + in_mgcep + ' | ' + \
         'sptk x2x +fs | sox -c 1 -e signed-integer -b 16 -t raw -r ' + str(Fs) + ' - ' + \
         '-c 1 -e signed-integer -b 16 -t wav -r ' + str(Fs) + ' ' + in_resid
@@ -404,7 +404,7 @@ def mgc_filter_residual(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename)
     io_wav.write(gen_path + basefilename + '_residual_upper_float32.wav', Fs, scaled_source)
     
     command = 'sox ' + gen_path + basefilename + '_residual_upper_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
-              'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
+              'sptk mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
               ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
               'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_based_on_residual_0.wav'
     ###print(command)
@@ -420,7 +420,7 @@ def mgc_filter_residual(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename)
     io_wav.write(gen_path + basefilename + '_residual_lower_float32.wav', Fs, scaled_source)
     
     command = 'sox ' + gen_path + basefilename + '_residual_lower_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
-              'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
+              'sptk mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
               ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
               'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_based_on_residual_0.wav'
     run(command, shell=True)
@@ -435,7 +435,7 @@ def mgc_filter_residual(pitch, mvf, mgc_coeff, resid_codebook_pca, basefilename)
     io_wav.write(gen_path + basefilename + '_residual_float32.wav', Fs, scaled_source)
     
     command = 'sox ' + gen_path + basefilename + '_residual_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
-              'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
+              'sptk mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
               ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
               'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_based_on_residual_0.wav'
     ###print(command)
@@ -578,7 +578,7 @@ def mgc_decoder_residual_with_envelope(pitch, mvf, mgc_coeff, resid_codebook_pca
     io_wav.write(gen_path + basefilename + '_source_' + envelope_type + '_float32.wav', Fs, scaled_source)
     
     command = 'sox ' + gen_path + basefilename + '_source_' + envelope_type + '_float32.wav' + ' -t raw -r ' + str(Fs) + ' - ' + ' | ' + \
-              'mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
+              'sptk mglsadf -P 5 -m ' + str(order) + ' -p ' + str(frshft) + \
               ' -a ' + str(alpha) + ' -c ' + str(stage) + ' ' + gen_path + basefilename + '.mgc' + ' | ' + \
               'sptk x2x +fs -o | sox -c 1 -b 16 -e signed-integer -t raw -r ' + str(Fs) + ' - -t wav -r ' + str(Fs) + ' ' + gen_path + basefilename + '_synthesized_with_' + envelope_type + '_0.wav'
     run(command, shell=True)
