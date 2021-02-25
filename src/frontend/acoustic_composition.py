@@ -104,7 +104,7 @@ class   AcousticComposition(AcousticBase):
         stream_start_index = {}
         stream_dim_index = 0
         for stream_name in out_dimension_dict.keys():
-            if not stream_start_index.has_key(stream_name):
+            if not stream_name in stream_start_index:
                 stream_start_index[stream_name] = stream_dim_index
 
             stream_dim_index += out_dimension_dict[stream_name]
