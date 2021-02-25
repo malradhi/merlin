@@ -111,7 +111,7 @@ class   AcousticComposition(AcousticBase):
                 
         io_funcs = BinaryIOCollection()
 
-        for i in xrange(self.file_number):
+        for i in range(self.file_number):
             out_file_name = out_file_list[i]
 
             #if os.path.isfile(out_file_name):
@@ -124,7 +124,7 @@ class   AcousticComposition(AcousticBase):
             out_frame_number = 0
 
 
-            for k in xrange(self.data_stream_number):
+            for k in range(self.data_stream_number):
                 data_stream_name = self.data_stream_list[k]
 
                 in_file_name = in_file_list_dict[data_stream_name][i]
